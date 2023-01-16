@@ -8,8 +8,11 @@ import {theme} from '../Core/theme';
 import DatePicker from 'react-native-date-picker';
 
 function AddEventsScreen({navigation}) {
+  const [name, setName] = useState('');
+  const [description, setDescription] = useState('');
   const [date, setDate] = useState(new Date());
   const [open, setOpen] = useState(false);
+
   return (
     <View style={Styles.container}>
       <View style={{width: '98%', height: '70%'}}>
@@ -18,9 +21,8 @@ function AddEventsScreen({navigation}) {
           underlineColor={theme.colors.primary}
           backgroundColor={theme.colors.white}
           // value={text}
-          // onChangeText={text => setText(text)}
+          onChangeText={text => setName(text)}
         />
-
         <AutoGrowingTextInput
           style={Styles.textInput}
           placeholder={'Notes for visitors'}
@@ -30,7 +32,7 @@ function AddEventsScreen({navigation}) {
           underlineColor={theme.colors.primary}
           backgroundColor={theme.colors.white}
           // value={text}
-          // onChangeText={text => setText(text)}
+          onChangeText={text => setDescription(text)}
         />
         <Button
           style={Styles.imageButton}
@@ -40,7 +42,7 @@ function AddEventsScreen({navigation}) {
           onPress={() => Alert.alert('Select Image')}>
           Insert Image +
         </Button>
-        {/* <Button title="Select Date" onPress={() => setOpen(true)} /> */}
+
         <Button
           style={Styles.dateButton}
           mode="outlined"
@@ -49,6 +51,7 @@ function AddEventsScreen({navigation}) {
           onPress={() => setOpen(true)}>
           Select Date
         </Button>
+
         <DatePicker
           modal={true}
           mode="date"

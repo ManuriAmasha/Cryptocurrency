@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, Image} from 'react-native';
 import {TextInput} from 'react-native-paper';
 import {Button} from 'react-native-paper';
 import {theme} from '../Core/theme';
@@ -41,12 +41,20 @@ function SignInScreen({navigation}) {
         isValid,
       }) => (
         <View
-          style={{flex: 1, alignItems: 'center', justifyContent: 'flex-start'}}>
-          <View style={{marginTop: '35%'}}>
-            <Text style={Styles.title}>ATeam</Text>
-            <Text style={Styles.title}>Software</Text>
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'flex-start',
+            backgroundColor: theme.colors.white,
+          }}>
+          <View style={{marginTop: '20%'}}>
+            <Text style={Styles.title}>Cashium</Text>
           </View>
-          <View style={{width: '90%', marginTop: '43%'}}>
+          <Image
+            style={Styles.image}
+            source={require('../Assets/landing05.png')}
+          />
+          <View style={{width: '90%', marginTop: '5%'}}>
             <TextInput
               mode="outlined"
               style={Styles.input}
@@ -108,13 +116,20 @@ const Styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    // justifyContent: 'center'
+    justifyContent: 'flex-start',
+    backgroundColor: theme.colors.white,
   },
   title: {
     fontSize: 32,
+    fontFamily: 'serif',
+    color: theme.colors.dark,
+    shadowColor: '#00A',
+    shadowOffset: {width: 5, height: 5},
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 1,
     textAlign: 'center',
     fontWeight: 'bold',
-    marginVertical: 10,
   },
   input: {
     width: '90%',
@@ -145,6 +160,13 @@ const Styles = StyleSheet.create({
     fontSize: 12,
     marginTop: 2,
     alignSelf: 'center',
+  },
+  image: {
+    width: '100%',
+    height: 300,
+    resizeMode: 'contain',
+    alignSelf: 'center',
+    marginTop: '10%',
   },
 });
 

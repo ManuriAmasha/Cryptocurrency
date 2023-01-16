@@ -5,6 +5,7 @@ import SignUpScreenTwo from '../Screens/SignUpScreen02';
 import LandingScreen from '../Screens/LandingScreen';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import ProfileEditScreen from '../Screens/ProfileEditScreen';
+import {theme} from '../Core/theme';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,7 +19,13 @@ export default function AuthStack({navigation}) {
           headerShown: false,
         }}
       />
-      <Stack.Screen name="SignIn" component={SignInScreen} />
+      <Stack.Screen
+        name="SignIn"
+        component={SignInScreen}
+        options={{
+          headerBackgroundColor: theme.colors.primary,
+        }}
+      />
       <Stack.Screen name="SignUp" component={SignUpScreen} />
       <Stack.Screen
         name="SignUpSecond"
@@ -37,6 +44,3 @@ export default function AuthStack({navigation}) {
     </Stack.Navigator>
   );
 }
-
-
-

@@ -1,9 +1,10 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {View, StyleSheet, Text, Image} from 'react-native';
 import {
   CardField,
   useStripe,
   useConfirmPayment,
+  initStripe,
 } from '@stripe/stripe-react-native';
 import {SafeAreaProvider} from 'react-native-safe-area-context';
 import {theme} from '../Core/theme';
@@ -17,45 +18,46 @@ import {nameValidator} from '../helpers/nameValidator';
 const PaymentsScreen = ({route, navigation}) => {
   const [card, setCard] = useState({cardNumber: '', expDate: '', cvc: ''});
   const [cardHolder, setCardHolder] = useState({value: '', error: ''});
-  const {confirmPayment, loading} = useConfirmPayment();
   const [text, setText] = React.useState('');
   const [amountError, setAmountError] = React.useState();
+  const {confirmPayment} = useStripe();
   // const {amount} = route.params;
 
-  async function onConfirmPresed() {
-    // let userToken = await SecureStore.getItemAsync('userToken')
+  // async function onConfirmPresed() {
+  //   let userToken = await SecureStore.getItemAsync('userToken')
 
-    // if (text > amount) {
-    //   setAmountError('Amount must be less than or equal to $ ' + amount);
-    // } else {
-    //   const date = new Date().toLocaleString();
+  //   if (text > amount) {
+  //     setAmountError('Amount must be less than or equal to $ ' + amount);
+  //   } else {
+  //     const date = new Date().toLocaleString();
 
-    //   var axios = require('axios');
-    //   var data = JSON.stringify({
-    //     amount: text,
-    //     date: date,
-    //     type: 'withdrawal',
-    //   });
-    //   var config = {
-    //     method: 'post',
-    //     url: API.host + 'publisher-transaction/withdraw',
-    //     headers: {
-    //       Authorization: `Bearer ${userToken}`,
-    //       'Content-Type': 'application/json',
-    //     },
-    //     data: data,
-    //   };
-    //   axios(config)
-    //     .then(function (response) {
-    //       console.log(JSON.stringify(response.data));
-    //     })
-    //     .catch(function (error) {
-    //       console.log(error);
-    //     });
-    // }
-  }
+  //     var axios = require('axios');
+  //     var data = JSON.stringify({
+  //       amount: text,
+  //       date: date,
+  //       type: 'withdrawal',
+  //     });
+  //     var config = {
+  //       method: 'post',
+  //       url: API.host + 'publisher-transaction/withdraw',
+  //       headers: {
+  //         Authorization: `Bearer ${userToken}`,
+  //         'Content-Type': 'application/json',
+  //       },
+  //       data: data,
+  //     };
+  //     axios(config)
+  //       .then(function (response) {
+  //         console.log(JSON.stringify(response.data));
+  //       })
+  //       .catch(function (error) {
+  //         console.log(error);
+  //       });
+  //   }
+  // }
 
   const handlePayPress = async () => {
+    confirmPayment(card, 100);
     // if (!card) {
     //   return;
     // }
@@ -76,10 +78,10 @@ const PaymentsScreen = ({route, navigation}) => {
     // } else if (paymentIntent) {
     //   console.log('Success from promise', paymentIntent);
     // }
-
   };
 
   // const fetchPaymentIntentClientSecret = async () => {
+  //   console.log('fetchPaymentIntentClientSecret');
   //   const response = await fetch('http://localhost:3000/stripe/charge', {
   //     method: 'POST',
   //     headers: {
@@ -93,6 +95,12 @@ const PaymentsScreen = ({route, navigation}) => {
   //   const {clientSecret} = await response.json();
   //   return clientSecret;
   // };
+
+  useEffect(()=>{
+    initStripe({
+      publishableKey: 'pk_test_51JvHR3ID7bnBPNMMnJhLGQ6iIb4CSwUPc6YYB0ZDbs6qq32QX3h9TE4X6CeBGNAUtq73gWuXYCTm40GPUdHwIO4E00Eg2iQWf6'
+    })
+  },[])
 
   return (
     <SafeAreaProvider>
@@ -169,9 +177,9 @@ const PaymentsScreen = ({route, navigation}) => {
           marginBottom={70}
           alignSelf={'center'}
           labelStyle={styles.labelStyle}
-          // onPress={onConfirmPresed}
+          onPress={handlePayPress}
           // disabled={loading}
-          >
+        >
           Confirm
         </Button>
       </View>

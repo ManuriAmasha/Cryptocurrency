@@ -4,6 +4,7 @@ import {filter} from 'lodash';
 import {Searchbar, IconButton, Menu, Divider} from 'react-native-paper';
 import ArticleCard from '../Components/ArticleCard';
 import {theme} from '../Core/theme';
+import axios from 'axios';
 
 const Articles = [
   {
@@ -29,16 +30,34 @@ const Articles = [
 export default function ArticleScreen({navigation}) {
   const [data, setData] = useState();
   // const [searchQuery, setSearchQuery] = useState('');
-  const [visible, setVisible] = useState(false);
+  // const [visible, setVisible] = useState(false);
 
   const openMenu = () => setVisible(true);
   const closeMenu = () => setVisible(false);
 
   useEffect(() => {
-    if(!data){
-      setData(Articles);
-    }
-  })
+    if (!data) {
+    setData(Articles)
+    // var axios = require('axios');
+    // var config = {
+    //   method: 'get',
+    //   url: 'https://10.0.2.2:5001/api/Blog',
+    //   headers: {
+    //     'Content-Type': 'application/json',
+    //   },
+    };
+
+    // axios(config)
+    //   .then(function (response) {
+    //     console.log(JSON.stringify(response.data));
+    
+    //     setData(response.data);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+    // // }
+  });
 
   const onChangeSearch = searchQuery => {
     if (searchQuery) {
@@ -74,7 +93,7 @@ export default function ArticleScreen({navigation}) {
       </View>
       <FlatList
         data={data}
-        keyExtractor={(data) => data.id.toString()}
+        keyExtractor={data => data.id.toString()}
         contentContainerStyle={{paddingBottom: 60}}
         style={{
           shadowColor: theme.colors.medium,

@@ -9,7 +9,7 @@ export const theme = {
     secondary: '#414757',
     Header: '#64748b',
     error: '#f13a59',
-    disabled: '#85929E',
+    disabled: '#143AA9',
     light: '#f8f4f4',
     medium: '#6e6969',
     dark: '#0c0c0c',
